@@ -1,0 +1,261 @@
+---
+title: "Verbs and Geom functions"
+author: "Andrew Harlow"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r, include=FALSE}
+library(tidyverse)
+library(hexbin)
+baseball <- read_csv("CPBaseball2019&2020.csv")
+```
+# Introduction
+
+In this part of the disctionary I describe how certain verbs are used to organize and alter a data set. The data set I use for the verbs contains baseball statistics of the Cal Poly Baseball team in the 2019 and 2020 season. This data was obtained from the Go Poly website about Cal Poly's Baseball statistics. When explaining how each verb or function works I will be explaining the context of the variable I use as well to avoid any confusion. The various verbs I use and explain are only a few of many other verbs that can be used to organize and alter a data set. However, these verbs are seen most commonly when cleaning data sets or changing variables. The verbs I describe include: arrange, filter, mutate, rename, sample_frac, sample_n, select, summarise, and transmute. Like stated earlier, this section uses the Cal Poly Baseball data set.  
+
+
+### arrange()
+The main function of the verb arrange() is to order table rows by a certain expression in any of the data set's variables. The syntax of the verb follows: arrange(.data, ...). The example I display below uses the one quantitative varaible ab or at-bat which is a batter's turn batting against a pitcher. I arrange ab in descending order due to my addition of the dash before the variable. This results in a table displaying the batters in order from the person having the most ab's to the person with least amount of ab's.   
+```{r}
+baseball %>% 
+  arrange(-ab)
+```
+Arrange() can also be used for character variables. In this example I use the one character variable first_name By arranging the first name of the batter, the table displays the batters in alphabetical order. 
+```{r}
+baseball %>% 
+  arrange(first_name)
+```
+
+### filter()
+The main function of the verb filter() is to filter table rows by a certain variable whether numeric or character in a data set. The syntax of the verb follows: filter(.data, ...). The example I display below uses the one quantitative varaible h or hits which is when a batter hits the ball and makes it to the base safely without an error occuring. I filter the data set by allowing players with more than 20 hits to be displayed only. By doing that, it does not display any rows where the hit column is 20 or less.   
+```{r}
+baseball %>% 
+  filter(h > 20)
+```
+I can also filter character varaibles. In this example I use the one character variable first_name, and we can see that there are two players that have the first name Connor. So if I filter the data set by allowing players with the first name of Connor to be displayed only, it does not display any row with a first name that is not Connor. Another important thing to know about the verb filter() is you have to use double equal signs (==) instead of a single equal sign or an error will appaear.    
+```{r}
+baseball %>% 
+  filter(first_name == "Connor")
+```
+
+### mutate()
+The main function of the verb mutate() is to add new varaibles and preserve existing varaibles in a data set. The syntax of the verb follows: mutate(.data, ...). The example I display below uses the three quantitative varaibles doubles, triples, and hr. In baseball doubles represent a hit when the batter reaches second base; triples represent a hit when the batter reaches third base; and a hr represents a hit when the batter either hits it over the outfiled fence or touches all bases before the defense get them out. I use mutate in this example to create a new quantitative varaible that creates a formula for a statitic named XBH which means extra base hits. By creating setting XBH equal to the formula it will create a new column name XBH that adds the number of doubles, triples, and hr's for each row.  
+```{r}
+baseball %>% 
+  mutate(XBH = doubles + triples + hr)
+```
+
+### rename()
+The main function of the verb rename() is to rename certain columns in a data set. The syntax of the verb follows: rename(.data, ...). The example I display below uses the one quantitative varaible so or strikeouts which is when a batter obatins three strikes during the at bat which means the batter is out. I use rename() in the data set by renaming the varaible so to a more descriptive name: strikeouts. I put the new varaible name in quotes first then the old varaible name in quotes afterwards.
+```{r}
+baseball %>% 
+  rename("strikeouts" = so)
+```
+
+### sample_frac()
+The main function of the verb sample_frac() is to select a random sample of the specified fraction of rows in a data set. The syntax of the verb follows: sample_frac(tbl, size = 1, replace = FALSE, weight = NULL, .env = NULL, ...). I use sample_frac() in the data set by taking a random sample of 1/2 of the rows in the baseball data set. 
+```{r}
+  sample_frac(baseball, .5, replace = FALSE)
+```
+
+### sameple_n
+The main function of the verb sample_n() is to select a random sample of the specified number of rows in a data set. The syntax of the verb follows: sample_n(tbl, size, replace = FALSE, weight = NULL, .env = NULL, ...). I use sample_n() in the data set by taking a random sample of 5 rows in the baseball data set. 
+```{r}
+sample_n(baseball, 5)
+```
+
+### select()
+The main function of the verb select() is to select certain columns in a data set for a table to display. The syntax of the verb follows: select(.data, ...). The example I display below uses the two character varaibles first_name and last_name and the two quantitative varaibles hr and bb. A bb or walk is when a batter obtains 4 balls in an at bat and is awarded first base. I use select() in the data set by selecting those varaibles so the table only shows the first name, last name, number of hr's, and the number of bb's.
+```{r}
+baseball %>% 
+  select(first_name, last_name, hr, bb)
+```
+
+### summarise()
+The main function of the verb summarise() is to create scalar variables summarizing the varaibles of a data set. The syntax of the verb follows: summarise(.data, ...). The example I display below uses the one quantitative varaible hr. I use summarise() in the data set by displaying the mean or average number of hr. Some other common scalar variables used are sd (standard deviation), sum, median, max, min, and n.
+```{r}
+baseball %>% 
+  summarise(MeanHr = mean(hr))
+```
+
+### transmute()
+The main function of the verb transmute() is to add new varaibles and remove all existing varaibles in a data set. The syntax of the verb follows: transmute(.data, ...). The example I display below uses the three quantitative varaibles doubles, triples, and hr. Transmute() is very simlar to mutate(), however the difference is that transmute() removes all the other variables while adding the new varaible and mutate() keeps the other varaibles. I use transmute in this example to create a new quantitative varaible that creates a formula for a statitic named XBH which means extra base hits. By creating setting XBH equal to the formula it will display the new column name XBH only that adds the number of doubles, triples, and hr's for each row.  
+```{r}
+baseball %>% 
+  transmute(XBH = doubles + triples + hr)
+```
+
+# Introduction
+
+In this part of the dictionary I use a data set named mtcars to display and describe the geom_functions. This data was already in the tidyverse package. The various geom functions I use and explain are only a few of many other functions that can be used to display plots of the data in a data set. However, these functions are seen most commonly when displaying statistical information.The ggplot geom functions I use include geom_bar,geom_boxplot, geom_dotplot, geom_errorbar, geom_hex, geom_point, geom_polygon, geom_spoke, geom_tile, and geom_violin.
+
+
+### geom_bar()
+The function geom_bar() displays a barplot of the count of a categorical x varaible or a barplot of a categorical x and quantitative y varaible. The syntax of geom_bar() follows:
+
+geom_bar(mapping = NULL, data = NULL, stat = "count", position = "stack", ..., width = NULL, binwidth = NULL, na.rm = FALSE, show.legend = NA, inherit.aes = TRUE).
+
+```{r}
+ggplot(mtcars, aes(cyl)) + 
+  geom_bar()  + 
+  labs(title= "Barplot of Number of CYlinders for Cars", x = "Number of Cylinders", y="Count") +
+#The following two lines center the title
+  theme_bw() + 
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+### geom_boxplot()
+The function geom_boxplot() displays a boxplot of a categorical x variable, a quantitative y variable, and a categorical variable for the group aesthetic. It is not necessary for a group aesthetic, however it causes the plot to have a better display. The syntax of geom_boxplot() follows:
+
+geom_boxplot(mapping = NULL, data = NULL, stat = "boxplot",
+  position = "dodge2", ..., outlier.colour = NULL,
+  outlier.color = NULL, outlier.fill = NULL, outlier.shape = 19,
+  outlier.size = 1.5, outlier.stroke = 0.5, outlier.alpha = NULL,
+  notch = FALSE, notchwidth = 0.5, varwidth = FALSE, na.rm = FALSE,
+  show.legend = NA, inherit.aes = TRUE)
+
+```{r, fig.width = 15}
+#I put cyl for both x and group so the graph can display meaningful information
+ggplot(mtcars, aes(cyl, mpg, group = cyl)) + 
+  geom_boxplot() +
+  labs(title= "Boxplot of MPG by Number of Cylinders", x = "Numbers of Cylinders", y="MPG") +
+#The following two lines center the title
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+### geom_dotplot()
+The function geom_dotplot() displays a dotplot of a quantitative x variable, a quantitative y variable, and a specified number for binwitdh (width of dots in plot). It is not necessary for a y variable similarly to geom_bar(). The syntax of geom_boxplot() follows:
+
+geom_dotplot(mapping = NULL, data = NULL, position = "identity", ...,
+  binwidth = NULL, binaxis = "x", method = "dotdensity",
+  binpositions = "bygroup", stackdir = "up", stackratio = 1,
+  dotsize = 1, stackgroups = FALSE, origin = NULL, right = TRUE,
+  width = 0.9, drop = FALSE, na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE)
+  
+```{r}
+ggplot(mtcars, aes(x = mpg)) + geom_dotplot(binwidth = 1.5)
+```
+
+#geom_errorbar()
+The function geom_boxplot displays a boxplot of a categorical x variable, a quantitative y variable, and a categorical variable for the group aesthetic. It is not necessary for a group aesthetic, however it causes the plot to have a better display. The syntax of geom_boxplot() follows:
+
+geom_errorbar(mapping = NULL, data = NULL, stat = "identity",
+  position = "identity", ..., na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE)
+  
+```{r, fig.width = 15}
+df <- data.frame(
+  trt = factor(c(1, 1, 2, 2)),
+  resp = c(1, 5, 3, 4),
+  group = factor(c(1, 2, 1, 2)),
+  upper = c(1.1, 5.3, 3.3, 4.2),
+  lower = c(0.8, 4.6, 2.4, 3.6)
+)
+ggplot(df, aes(trt, resp)) + geom_errorbar(aes(ymin = lower, ymax = upper), width = 0.2) +labs(title = "Errorbar plot for trt vs resp by group") +  theme_bw() + theme(plot.title = element_text(hjust = 0.5))
+```
+
+#geom_hex()
+The function geom_hex() displays a boxplot of a categorical or quantitative x variable and a quantitative y variable, and a specific number for the number of bins. The syntax of geom_hex() follows:
+
+geom_hex(mapping = NULL, data = NULL, stat = "binhex",
+  position = "identity", ..., na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE)
+  
+```{r, fig.width=15}
+ggplot(mtcars, aes(drat, mpg)) + geom_hex(bins = 10)
+```
+
+#geom_point()
+The function geom_point() displays a scatter plot of a quantitative x variable and a quantitative y variable. The syntax of geom_point() follows:
+
+geom_point(mapping = NULL, data = NULL, stat = "identity",
+  position = "identity", ..., na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE)
+  
+```{r, fig.width = 10}
+ggplot(mtcars, aes(wt, mpg)) + geom_point() 
+```
+
+#geom_polygon()
+The function geom_polygon() displays a polygon shape of a categorical x variable, a quantitative y variable, a categorical variable for the group aesthetic, and a quantitative variable for the fill aesthetic. All variables are necessary. The first example I display uses predetermined values made in a data frame, and the second example is from the data set mt cars. The syntax of geom_polygon() follows:
+
+geom_polygon(mapping = NULL, data = NULL, stat = "identity",
+  position = "identity", rule = "evenodd", ..., na.rm = FALSE,
+  show.legend = NA, inherit.aes = TRUE)
+  
+```{r}
+ids <- factor(c("1.1", "2.1", "1.2", "2.2", "1.3", "2.3"))
+
+values <- data.frame(
+  id = ids,
+  value = c(3, 3.1, 3.1, 3.2, 3.15, 3.5)
+)
+
+positions <- data.frame(
+  id = rep(ids, each = 4),
+  x = c(2, 1, 1.1, 2.2, 1, 0, 0.3, 1.1, 2.2, 1.1, 1.2, 2.5, 1.1, 0.3,
+  0.5, 1.2, 2.5, 1.2, 1.3, 2.7, 1.2, 0.5, 0.6, 1.3),
+  y = c(-0.5, 0, 1, 0.5, 0, 0.5, 1.5, 1, 0.5, 1, 2.1, 1.7, 1, 1.5,
+  2.2, 2.1, 1.7, 2.1, 3.2, 2.8, 2.1, 2.2, 3.3, 3.2)
+)
+
+datapoly <- merge(values, positions, by = c("id"))
+
+ggplot(datapoly, aes(x = x, y = y)) +
+  geom_polygon(aes(fill = value, group = id))
+```
+
+```{r, fig.width=15}
+ggplot(mtcars, aes(x = mpg, y = drat)) +
+  geom_polygon(aes(fill = drat, group = cyl))
+```
+
+#geom_spoke()
+The function geom_spoke() displays a line from a certain point of a quantitative x variable, a quantitative y variable, and a specific number of angle and radius. Geom_spoke() has to pair up geom_point() for it to work. The syntax of geom_spoke() follows:
+
+geom_spoke(mapping = NULL, data = NULL, stat = "identity",
+  position = "identity", ..., na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE)
+  
+```{r, fig.width = 15}
+ggplot(mtcars, aes(mpg, wt)) +
+  geom_point() +
+  geom_spoke(aes(angle = 90), radius = 0.5)
+```
+
+#geom_tile()
+The function geom_tile() displays a tile layout of a quantitative x variable, a quantitative y variable, and a categorical or quantitative variable for the fill aesthetic. All od these variables are necessary. In this example I use values from a data frame in order to display what a proper geom_tile() looks like. The syntax of geom_tile() follows:
+
+geom_tile(mapping = NULL, data = NULL, stat = "identity",
+  position = "identity", ..., linejoin = "mitre", na.rm = FALSE,
+  show.legend = NA, inherit.aes = TRUE)
+  
+```{r, fig.width = 15}
+df <- data.frame(
+  x = rep(c(2, 5, 7, 9, 12), 2),
+  y = rep(c(1, 2), each = 5),
+  z = factor(rep(1:5, each = 2)),
+  w = rep(diff(c(0, 4, 6, 8, 10, 14)), 2)
+)
+ggplot(df, aes(x, y)) +
+  geom_tile(aes(fill = z))
+```
+
+#geom_violin()
+The function geom_violin() displays a combination of geom_boxplot() and geom_density() of a categorical x variable turned into a factor and a quantitative y variable. These variables are necessary. The violin is a mirrored desnity plot while being displayed as a boxplot. The syntax of geom_violin() follows:
+
+geom_violin(mapping = NULL, data = NULL, stat = "ydensity",
+  position = "dodge", ..., draw_quantiles = NULL, trim = TRUE,
+  scale = "area", na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE)
+  
+```{r, fig.width = 15}
+ggplot(mtcars, aes(factor(cyl), mpg)) + geom_violin()
+```
