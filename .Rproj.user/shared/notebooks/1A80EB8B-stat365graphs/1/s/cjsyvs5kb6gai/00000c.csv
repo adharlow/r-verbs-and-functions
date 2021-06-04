@@ -1,0 +1,6 @@
+"0","dat <- dat %>% 
+  revalue(c(""insidious""=""Scary""))
+"
+"2","Error in revalue(., c(insidious = ""Scary"")) : 
+  could not find function ""revalue""
+"

@@ -1,0 +1,4 @@
+"0","lm <- lm(total_hrs ~ movie, dat)"
+"0",""
+"0","ggplot(dat, aes(x=movie,y=total_hrs, color = movie)) +"
+"0","  geom_point() + geom_abline()"

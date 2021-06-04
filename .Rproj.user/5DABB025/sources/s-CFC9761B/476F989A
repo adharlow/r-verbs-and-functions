@@ -1,0 +1,24 @@
+{
+    "id": "476F989A",
+    "path": "D:/R/FUN/RProjects/01_creating_sample_dataframe.R",
+    "project_path": "01_creating_sample_dataframe.R",
+    "type": "r_source",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1602656404863.0,
+    "source_on_save": false,
+    "relative_order": 3,
+    "properties": {
+        "cursorPosition": "26,26",
+        "scrollLine": "5"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1602097484,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1602097484,
+    "read_only": false,
+    "read_only_alternatives": []
+}

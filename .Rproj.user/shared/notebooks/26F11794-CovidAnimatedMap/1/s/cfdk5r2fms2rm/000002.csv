@@ -1,0 +1,13 @@
+"0","library(tidyverse)"
+"0","library(leaflet)"
+"0",""
+"0","covid <- read_csv(""Hospitalization_all_locs.csv"")"
+"2","Parsed with column specification:
+cols(
+  .default = col_double(),
+  location_name = [31mcol_character()[39m,
+  date = [34mcol_date(format = """")[39m
+)
+"
+"2","See spec(...) for full column specifications.
+"

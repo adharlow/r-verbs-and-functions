@@ -1,0 +1,27 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1588178520112.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2923295536",
+    "id" : "584A2DC5",
+    "lastKnownWriteTime" : 1590049244,
+    "last_content_update" : 1590049243716,
+    "path" : "D:/R/FUN/RProjects/CovidAnimatedMap.Rmd",
+    "project_path" : "CovidAnimatedMap.Rmd",
+    "properties" : {
+        "cursorPosition" : "23,14",
+        "last_setup_crc32" : "",
+        "scrollLine" : "0",
+        "tempName" : "Untitled2"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

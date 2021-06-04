@@ -1,0 +1,6 @@
+"0","dat %>% "
+"0","  select(movie, total_hrs) %>% "
+"0","  group_by(movie) %>% "
+"0","  summarise(meanhrs = mean(total_hrs)) %>% "
+"0","  ggplot(aes(x=movie, y = meanhrs)) +"
+"0","  geom_bar(stat = ""identity"")"

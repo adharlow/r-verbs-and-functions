@@ -1,0 +1,8 @@
+setwd("~/SAS")
+data <- read.csv("HittersCP.csv")
+
+data %>%
+  mutate(
+    ops = ob.. + slg..
+  )
+

@@ -1,0 +1,90 @@
+---
+title: "R Dictionary"
+author: "Andrew Harlow"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, include=FALSE}
+library(tidyverse)
+library(hexbin)
+baseball <- read_csv("CPBaseball2019&2020.csv")
+```
+# Introduction
+
+In this part of the disctionary I describe how certain verbs are used to organize and alter a data set. The data set I use for the verbs contains baseball statistics of the Cal Poly Baseball team in the 2019 and 2020 season. This data was obtained from the Go Poly website about Cal Poly's Baseball statistics. When explaining how each verb or function works I will be explaining the context of the variable I use as well to avoid any confusion. The various verbs I use and explain are only a few of many other verbs that can be used to organize and alter a data set. However, these verbs are seen most commonly when cleaning data sets or changing variables. The verbs I describe include: arrange, filter, mutate, rename, sample_frac, sample_n, select, summarise, and transmute. Like stated earlier, this section uses the Cal Poly Baseball data set.  
+
+
+### arrange()
+The main function of the verb arrange() is to order table rows by a certain expression in any of the data set's variables. The syntax of the verb follows: arrange(.data, ...). The example I display below uses the one quantitative varaible ab or at-bat which is a batter's turn batting against a pitcher. I arrange ab in descending order due to my addition of the dash before the variable. This results in a table displaying the batters in order from the person having the most ab's to the person with least amount of ab's.   
+```{r}
+baseball %>% 
+  arrange(-ab)
+```
+Arrange() can also be used for character variables. In this example I use the one character variable first_name By arranging the first name of the batter, the table displays the batters in alphabetical order. 
+```{r}
+baseball %>% 
+  arrange(first_name)
+```
+
+### filter()
+The main function of the verb filter() is to filter table rows by a certain variable whether numeric or character in a data set. The syntax of the verb follows: filter(.data, ...). The example I display below uses the one quantitative varaible h or hits which is when a batter hits the ball and makes it to the base safely without an error occuring. I filter the data set by allowing players with more than 20 hits to be displayed only. By doing that, it does not display any rows where the hit column is 20 or less.   
+```{r}
+baseball %>% 
+  filter(h > 20)
+```
+I can also filter character varaibles. In this example I use the one character variable first_name, and we can see that there are two players that have the first name Connor. So if I filter the data set by allowing players with the first name of Connor to be displayed only, it does not display any row with a first name that is not Connor. Another important thing to know about the verb filter() is you have to use double equal signs (==) instead of a single equal sign or an error will appaear.    
+```{r}
+baseball %>% 
+  filter(first_name == "Connor")
+```
+
+### mutate()
+The main function of the verb mutate() is to add new varaibles and preserve existing varaibles in a data set. The syntax of the verb follows: mutate(.data, ...). The example I display below uses the three quantitative varaibles doubles, triples, and hr. In baseball doubles represent a hit when the batter reaches second base; triples represent a hit when the batter reaches third base; and a hr represents a hit when the batter either hits it over the outfiled fence or touches all bases before the defense get them out. I use mutate in this example to create a new quantitative varaible that creates a formula for a statitic named XBH which means extra base hits. By creating setting XBH equal to the formula it will create a new column name XBH that adds the number of doubles, triples, and hr's for each row.  
+```{r}
+baseball %>% 
+  mutate(XBH = doubles + triples + hr)
+```
+
+### rename()
+The main function of the verb rename() is to rename certain columns in a data set. The syntax of the verb follows: rename(.data, ...). The example I display below uses the one quantitative varaible so or strikeouts which is when a batter obatins three strikes during the at bat which means the batter is out. I use rename() in the data set by renaming the varaible so to a more descriptive name: strikeouts. I put the new varaible name in quotes first then the old varaible name in quotes afterwards.
+```{r}
+baseball %>% 
+  rename("strikeouts" = so)
+```
+
+### sample_frac()
+The main function of the verb sample_frac() is to select a random sample of the specified fraction of rows in a data set. The syntax of the verb follows: sample_frac(tbl, size = 1, replace = FALSE, weight = NULL, .env = NULL, ...). I use sample_frac() in the data set by taking a random sample of 1/2 of the rows in the baseball data set. 
+```{r}
+  sample_frac(baseball, .5, replace = FALSE)
+```
+
+### sameple_n
+The main function of the verb sample_n() is to select a random sample of the specified number of rows in a data set. The syntax of the verb follows: sample_n(tbl, size, replace = FALSE, weight = NULL, .env = NULL, ...). I use sample_n() in the data set by taking a random sample of 5 rows in the baseball data set. 
+```{r}
+sample_n(baseball, 5)
+```
+
+### select()
+The main function of the verb select() is to select certain columns in a data set for a table to display. The syntax of the verb follows: select(.data, ...). The example I display below uses the two character varaibles first_name and last_name and the two quantitative varaibles hr and bb. A bb or walk is when a batter obtains 4 balls in an at bat and is awarded first base. I use select() in the data set by selecting those varaibles so the table only shows the first name, last name, number of hr's, and the number of bb's.
+```{r}
+baseball %>% 
+  select(first_name, last_name, hr, bb)
+```
+
+### summarise()
+The main function of the verb summarise() is to create scalar variables summarizing the varaibles of a data set. The syntax of the verb follows: summarise(.data, ...). The example I display below uses the one quantitative varaible hr. I use summarise() in the data set by displaying the mean or average number of hr. Some other common scalar variables used are sd (standard deviation), sum, median, max, min, and n.
+```{r}
+baseball %>% 
+  summarise(MeanHr = mean(hr))
+```
+
+### transmute()
+The main function of the verb transmute() is to add new varaibles and remove all existing varaibles in a data set. The syntax of the verb follows: transmute(.data, ...). The example I display below uses the three quantitative varaibles doubles, triples, and hr. Transmute() is very simlar to mutate(), however the difference is that transmute() removes all the other variables while adding the new varaible and mutate() keeps the other varaibles. I use transmute in this example to create a new quantitative varaible that creates a formula for a statitic named XBH which means extra base hits. By creating setting XBH equal to the formula it will display the new column name XBH only that adds the number of doubles, triples, and hr's for each row.  
+```{r}
+baseball %>% 
+  transmute(XBH = doubles + triples + hr)
+```

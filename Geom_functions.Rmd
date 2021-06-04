@@ -1,0 +1,150 @@
+---
+title: "Geom functions for ggplot"
+author: "Andrew Harlow"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, include = FALSE}
+library(tidyverse)
+library(hexbin)
+
+mtcars %>% 
+  mutate(cyl = as.factor(cyl))
+```
+# Introduction
+
+In this part of the dictionary I use a data set named mtcars to display and describe the geom_functions. This data was already in the tidyverse package. The various geom functions I use and explain are only a few of many other functions that can be used to display plots of the data in a data set. However, these functions are seen most commonly when displaying statistical information.The ggplot geom functions I use include geom_bar,geom_boxplot, geom_dotplot, geom_errorbar, geom_hex, geom_point, geom_polygon, geom_spoke, geom_tile, and geom_violin.
+
+
+### geom_bar()
+The function geom_bar() displays a barplot of the count of a categorical x varaible or a barplot of a categorical x and quantitative y varaible. The syntax of geom_bar() follows:
+
+geom_bar(mapping = NULL, data = NULL, stat = "count", position = "stack", ..., width = NULL, binwidth = NULL, na.rm = FALSE, show.legend = NA, inherit.aes = TRUE).
+
+```{r}
+ggplot(mtcars, aes(factor(cyl))) + 
+  geom_bar(fill = "orange")  + 
+  labs(title= "Barplot of Number of Cylinders for Cars", x = "Number of Cylinders", y="Count") +
+#The following two lines center the title
+  theme_bw() + 
+  theme(plot.title = element_text(hjust = 0.5), axis.title = element_text(family = "sans", face = "plain", color = "red", size = 12))
+```
+
+### geom_boxplot()
+The function geom_boxplot() displays a boxplot of a categorical x variable, a quantitative y variable, and a categorical variable for the group aesthetic. It is not necessary for a group aesthetic, however it causes the plot to have a better display. The syntax of geom_boxplot() follows:
+
+geom_boxplot(mapping = NULL, data = NULL, stat = "boxplot",
+  position = "dodge2", ..., outlier.colour = NULL,
+  outlier.color = NULL, outlier.fill = NULL, outlier.shape = 19,
+  outlier.size = 1.5, outlier.stroke = 0.5, outlier.alpha = NULL,
+  notch = FALSE, notchwidth = 0.5, varwidth = FALSE, na.rm = FALSE,
+  show.legend = NA, inherit.aes = TRUE)
+
+```{r, fig.width = 10}
+ggplot(mtcars, aes(factor(cyl), mpg)) + 
+  geom_boxplot(color = "red") +
+  labs(title= "Boxplot of MPG by Number of Cylinders", x = "Numbers of Cylinders", y="MPG") +
+#The following two lines center the title
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5), axis.title = element_text(family = "sans", face = "plain", color = "red", size = 12))
+```
+
+### geom_dotplot()
+The function geom_dotplot() displays a dotplot of a quantitative x variable, a quantitative y variable, and a specified number for binwitdh (width of dots in plot). It is not necessary for a y variable similarly to geom_bar(). The syntax of geom_boxplot() follows:
+
+geom_dotplot(mapping = NULL, data = NULL, position = "identity", ...,
+  binwidth = NULL, binaxis = "x", method = "dotdensity",
+  binpositions = "bygroup", stackdir = "up", stackratio = 1,
+  dotsize = 1, stackgroups = FALSE, origin = NULL, right = TRUE,
+  width = 0.9, drop = FALSE, na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE)
+  
+```{r}
+ggplot(mtcars, aes(x = mpg)) +
+  geom_dotplot(binwidth = 1.5, fill = "green") +
+  labs(title= "Boxplot of MPG by Number of Cylinders", x = "Numbers of Cylinders", y="MPG") +
+#The following two lines center the title
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5), axis.title = element_text(family = "sans", face = "plain", color = "red", size = 12))
+```
+
+#geom_errorbar()
+The function geom_errorbar() displays an errorbar plot of a categorical x variable, a quantitative y variable, a categorical variable for the group aesthetic, and two numbers for ymin and xmin. The reccomended number It is not necessary for a group aesthetic, however it causes the plot to have a better display. The syntax of geom_boxplot() follows:
+
+geom_errorbar(mapping = NULL, data = NULL, stat = "identity",
+  position = "identity", ..., na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE)
+  
+```{r, fig.width = 10}
+df <- data.frame(
+  trt = factor(c(1, 1, 2, 2)),
+  resp = c(1, 5, 3, 4),
+  group = factor(c(1, 2, 1, 2)),
+  upper = c(1.1, 5.3, 3.3, 4.2),
+  lower = c(0.8, 4.6, 2.4, 3.6)
+)
+ggplot(df, aes(trt, resp)) + 
+  geom_errorbar(aes(ymin = lower, ymax = upper, color = group), width = 0.2) +
+  labs(title = "Errorbar plot for trt vs resp by group") +   
+  theme_bw() + 
+  theme(plot.title = element_text(hjust = 0.5), axis.title = element_text(family = "sans", face = "plain", color = "red", size = 12))
+```
+#geom_histogram
+The function geom_histogram() displays a histogram of a quantitative or a categorical x variable. All of these variables are necessary. The syntax of geom_tile() follows:
+
+geom_histogram(mapping = NULL, data = NULL, stat = "bin",
+  position = "stack", ..., binwidth = NULL, bins = NULL,
+  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
+  
+```{r}
+ggplot(mtcars, aes(x=mpg)) +
+  geom_histogram(fill = "blue") +
+  labs(title= "Histogram of MPG vs Number of Cylinders", x = "Numbers of Cylinders", y="Count") +
+#The following two lines center the title
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5), axis.title = element_text(family = "sans", face = "plain", color = "red", size = 12))
+```
+
+#geom_tile()
+The function geom_tile() displays a tile layout of a quantitative x variable, a quantitative y variable, and a categorical or quantitative variable for the fill aesthetic. All od these variables are necessary. In this example I use values from a data frame in order to display what a proper geom_tile() looks like. The syntax of geom_tile() follows:
+
+geom_tile(mapping = NULL, data = NULL, stat = "identity",
+  position = "identity", ..., linejoin = "mitre", na.rm = FALSE,
+  show.legend = NA, inherit.aes = TRUE)
+  
+```{r, fig.width = 15}
+df <- data.frame(
+  x = rep(c(2, 5, 7, 9, 12), 2),
+  y = rep(c(1, 2), each = 5),
+  z = factor(rep(1:5, each = 2)),
+  w = rep(diff(c(0, 4, 6, 8, 10, 14)), 2)
+)
+ggplot(df, aes(x, y)) +
+  geom_tile(aes(fill = z)) +
+  labs(title= "Boxplot of MPG by Number of Cylinders", x = "Numbers of Cylinders", y="MPG") +
+#The following two lines center the title
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5), axis.title = element_text(family = "sans", face = "plain", color = "red", size = 12))
+```
+
+#geom_violin()
+The function geom_violin() displays a combination of geom_boxplot() and geom_density() of a categorical x variable turned into a factor and a quantitative y variable. These variables are necessary. The violin is a mirrored desnity plot while being displayed as a boxplot. The syntax of geom_violin() follows:
+
+geom_violin(mapping = NULL, data = NULL, stat = "ydensity",
+  position = "dodge", ..., draw_quantiles = NULL, trim = TRUE,
+  scale = "area", na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE)
+  
+```{r, fig.width = 15}
+ggplot(mtcars, aes(factor(cyl), mpg)) +
+  geom_violin(color = "purple") +
+  labs(title= "Vilon plot of MPG vs Number of Cylinders", x = "Numbers of Cylinders", y="MPG") +
+#The following two lines center the title
+#If you just use axis.title, it should make changes to both the x and y axes
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5), axis.title = element_text(family = "sans", face = "plain", color = "red", size = 12))
+```

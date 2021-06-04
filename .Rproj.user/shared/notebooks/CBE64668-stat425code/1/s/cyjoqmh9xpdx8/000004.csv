@@ -1,0 +1,77 @@
+"0","library(EnvStats)"
+"2","
+Attaching package: ‘EnvStats’
+
+"
+"2","The following objects are masked from ‘package:stats’:
+
+    predict, predict.lm
+
+"
+"2","The following object is masked from ‘package:base’:
+
+    print.default
+
+"
+"0","ehyper(383, m = NULL, total = 300000, k=885, method = ""mle"")"
+"1","$distribution
+"
+"1","[1]"
+"1"," ""Hypergeometric"""
+"1","
+"
+"1","
+"
+"1","$sample.size
+"
+"1","[1]"
+"1"," 1"
+"1","
+"
+"1","
+"
+"1","$parameters
+"
+"1","     m "
+"1","     n "
+"1","     k "
+"1","
+"
+"1","129830 "
+"1","170170 "
+"1","   885 "
+"1","
+"
+"1","
+"
+"1","$n.param.est
+"
+"1","[1]"
+"1"," 1"
+"1","
+"
+"1","
+"
+"1","$method
+"
+"1","[1]"
+"1"," ""mle for 'm'"""
+"1","
+"
+"1","
+"
+"1","$data.name
+"
+"1","[1]"
+"1"," ""383"""
+"1","
+"
+"1","
+"
+"1","attr(,""class"")"
+"1","
+"
+"1","[1]"
+"1"," ""estimate"""
+"1","
+"

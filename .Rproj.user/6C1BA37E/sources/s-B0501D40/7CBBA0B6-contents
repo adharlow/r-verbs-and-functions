@@ -1,0 +1,46 @@
+---
+title: "STAT 365 DATA"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+dat <- read.csv("STAT365Data.csv")
+```
+
+```{r}
+dat <- dat %>% 
+  revalue(c("insidious"="Scary"))
+
+```
+
+```{r}
+dat %>% 
+  select(movie, total_hrs) %>% 
+  group_by(movie) %>% 
+  summarise(meanhrs = mean(total_hrs)) %>% 
+  ggplot(aes(x=movie, y = meanhrs)) +
+  geom_bar(stat = "identity")
+```
+
+```{r}
+ggplot(dat) +
+  geom_boxplot(aes(x=movie,y=total_hrs, fill = movie)) +
+  labs(y = "Total Hours", x = "Movie") +
+  ggtitle("Amount of Sleep Based on Movie Watched") + 
+  theme_classic() +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme(legend.position = "none")
+```
+
+```{r}
+lm <- lm(total_hrs ~ movie, dat)
+
+ggplot(dat, aes(x=movie,y=total_hrs, color = movie)) +
+  geom_point() + geom_abline()
+```
+

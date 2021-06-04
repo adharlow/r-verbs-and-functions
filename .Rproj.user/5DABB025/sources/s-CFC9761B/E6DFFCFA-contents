@@ -1,0 +1,8 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+*/ creating data with paste0
+do runif to generate random numbers 
+send two csv's 

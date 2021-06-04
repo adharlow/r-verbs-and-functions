@@ -1,0 +1,82 @@
+---
+title: "CP Hitters and Pitchers"
+output: html_document
+---
+
+```{r, include = FALSE}
+library(tidyverse)
+library(dplyr)
+```
+
+```{r, include = FALSE}
+setwd("D:/R/FUN")
+hitters <- read.csv("HittersCP.csv")
+
+```
+
+```{r, echo = FALSE}
+hitters <- hitters %>%
+  select(Player,slg,obp) %>%
+  mutate(ops = slg + obp)
+hitters
+```
+
+```{r, echo = FALSE}
+ggplot(data = hitters, aes(x=reorder(Player,ops), y=ops)) +
+  geom_bar(stat="identity", fill = "gold", color = "green", position = "dodge") +
+  labs(x = "Player Name", y = "OPS", title = "OPS leaders for CP Hitters") +
+  ##geom_text(aes(label=Player), position=position_dodge(width=0.9), vjust=-0.25) +
+  theme_minimal() +
+  theme(axis.text.x=element_blank()) 
+  
+```
+
+```{r, include = FALSE}
+pitchers <- read_csv("CPpitchers.csv")
+str(pitchers)
+```
+```{r, include = FALSE}
+pitchers %>%
+  mutate(
+    h = as.numeric(h, replace = TRUE),
+    bb = as.numeric(bb, replace = TRUE),
+    ba = as.numeric(ba, replace = TRUE),
+    hbp = as.numeric(hbp, replace = TRUE),
+    sfa = as.numeric(sfa, replace = TRUE)
+  )
+str(pitchers)
+```
+
+
+```{r, echo = FALSE}
+pitchers <- pitchers %>%
+  select(Player, h, bb, hbp, ab, sfa, doubles, triples, hr) %>%
+  mutate(
+    singles = h - (doubles + triples + hr), 
+    obpA = (h + bb + hbp) / (ab + hbp + bb + sfa), slgA = (singles*1 + doubles*2 + triples*3 + hr *4) / ab, 
+    opsA = obpA + slgA)
+
+  
+```
+
+```{r, echo = FALSE}
+pitchers <- pitchers %>%
+  select(Player, obpA, slgA, opsA) %>%
+  group_by(opsA)
+pitchers
+```
+
+```{r, echo = FALSE}
+ggplot(data = pitchers, aes(x=reorder(Player, opsA), y=opsA)) +
+  geom_bar(stat="identity", fill = "gold", color = "green", position = "dodge") +
+  labs(x = "Player Name", y = "OPS Against", title = "OPS Against leaders for CP Pitchers") +
+  geom_text(aes(label=Player), position=position_dodge(width=0.9), vjust=-0.25) +
+  theme_minimal() +
+  theme(axis.text.x=element_blank()) 
+  
+```
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```

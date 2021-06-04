@@ -1,0 +1,19 @@
+library(randomNames)
+library(ggplot2)
+library(kableExtra)
+library(dplyr)
+library(tinytex)
+library(rmarkdown)
+library(tidyverse)
+options(tinytex.verbose = TRUE)
+
+location_id
+location
+clubhouse_id
+clubhouse
+bgc_facillitator_name
+bgc_facillitator_email
+bgc_facillitator_phone_number
+
+
+write.csv(df,'report_grade.csv',row.names = FALSE)

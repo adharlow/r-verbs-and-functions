@@ -1,0 +1,34 @@
+---
+title: "FUN"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, include=FALSE}
+library(tidyverse)
+library(leaflet)
+
+covid <- read_csv("Hospitalization_all_locs.csv")
+```
+
+```{r}
+covid_US <- covid %>% 
+  filter(location_name == "Alabama" | location_name == "Alaska" | location_name == "Arizona" | location_name == "Arkansas" | location_name == "California" | location_name == "Colorado" | location_name == "Connecticut" | location_name == "Delaware" | location_name == "Florida" | location_name == "Georgia" | location_name == "Hawaii" | location_name == "Idaho" | location_name == "Illinois" | location_name == "Indiana" | location_name == "Iowa" | location_name == "Kansas" | location_name == "Kentucky" | location_name == "Louisiana" | location_name == "Maine" | location_name == "Maryland" | location_name == "Massachusetts" | location_name == "Michigan" | location_name == "" | location_name == "Minnesota" | location_name == "Mississippi" | location_name == "Missouri" | location_name == "Montana" | location_name == "Nebraska" | location_name == "Nevada" | location_name == "New Hampshire" | location_name == "New Jersey" | location_name == "New Mexico" | location_name == "New York" | location_name == "North Carolina" | location_name == "North Dakota" | location_name == "Ohio" | location_name == "Oklahoma" | location_name == "Oregon" | location_name == "Pennsylvania" | location_name == "Rhode Island" | location_name == "South Carolina" | location_name == "South Dakota" | location_name == "Tennessee" | location_name == "Texas" | location_name == "Utah" | location_name == "Vermont" | location_name == "Virginia" | location_name == "Washington" | location_name == "West Virginia" | location_name == "Wisconsin" | location_name == "Alabama" | location_name == "Wyoming" )
+```
+
+```{r}
+
+p2 <- covid_US %>% 
+leaflet() %>%  
+addTiles() %>% 
+ggtitle("Age of Academy Award Winners ({ frame_time }s)") +
+xlab("Year of Award") +
+ylab("Age at Award") +
+transition_time(date)
+
+animate(p2, nframes = 9, fps = 1)
+```
+

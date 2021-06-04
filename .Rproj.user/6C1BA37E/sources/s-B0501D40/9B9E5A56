@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1590050888411.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "9B9E5A56",
+    "lastKnownWriteTime" : 1589950998,
+    "last_content_update" : 1589950998,
+    "path" : "D:/R/STAT431/STAT431/newvisualstat365.Rmd",
+    "project_path" : null,
+    "properties" : {
+        "cursorPosition" : "94,154",
+        "scrollLine" : "61"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

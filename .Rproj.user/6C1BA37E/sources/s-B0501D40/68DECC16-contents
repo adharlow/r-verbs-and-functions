@@ -1,0 +1,129 @@
+---
+title: "R Dictionary"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, include=FALSE}
+library(tidyverse)
+library(lubridate)
+stocks <- read_csv("S&P500Companies.csv")
+baseball <- read_csv("CPBaseball2019&2020.csv")
+nba <- read_csv("NBA_player_of_the_week.csv")
+```
+
+##Verbs
+
+
+#arrange()
+```{r}
+baseball %>% 
+  arrange(-ab)
+```
+```{r}
+baseball %>% 
+  arrange(first_name)
+```
+
+#filter()
+```{r}
+baseball %>% 
+  filter(h > 20)
+```
+```{r}
+baseball %>% 
+  filter(first_name == "Connor")
+```
+
+#mutate()
+```{r}
+baseball %>% 
+  mutate(XBH = doubles + triples + hr)
+```
+
+#rename()
+```{r}
+baseball %>% 
+  rename("strikeouts" = so)
+```
+
+#sample_frac()
+```{r}
+
+```
+
+#sameple_n
+```{r}
+
+```
+
+#select()
+```{r}
+
+```
+
+#summarise() or summarize()
+```{r}
+
+```
+
+#transmutate()
+```{r}
+
+```
+
+##Geom's for ggplot
+
+#geom_bar()
+```{r}
+
+```
+
+#geom_boxplot()
+```{r}
+
+```
+
+#geom_dotplot()
+```{r}
+
+```
+
+#geom_errorbar()
+```{r}
+
+```
+
+#geom_hex()
+```{r}
+
+```
+
+#geom_point()
+```{r}
+
+```
+
+#geom_polygon()
+```{r}
+
+```
+
+#geom_spoke()
+```{r}
+
+```
+
+#geom_tile()
+```{r}
+
+```
+
+#geom_violin()
+```{r}
+
+```
+

@@ -1,0 +1,27 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1590049268698.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3569424806",
+    "id" : "7CBBA0B6",
+    "lastKnownWriteTime" : 1590051850,
+    "last_content_update" : 1590051849613,
+    "path" : "D:/R/FUN/stat365graphs.Rmd",
+    "project_path" : null,
+    "properties" : {
+        "cursorPosition" : "18,0",
+        "last_setup_crc32" : "B0501D40bb338d19",
+        "scrollLine" : "5",
+        "tempName" : "Untitled1"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

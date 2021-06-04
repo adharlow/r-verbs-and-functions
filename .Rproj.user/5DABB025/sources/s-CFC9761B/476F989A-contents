@@ -1,0 +1,45 @@
+library(randomNames)
+library(ggplot2)
+library(kableExtra)
+library(dplyr)
+library(tinytex)
+library(rmarkdown)
+library(tidyverse)
+options(tinytex.verbose = TRUE)
+
+
+#import data frame
+#variables for the data frame
+location = c('San Francisco','Los Angles', 'San Diego','Bakersfield','Santa Maria')
+week = c("Week 1","Week 2","Week 3","Week 4")
+subject = c('Counting & Arithmetic', 'Number Sense','Geometry','Measurement & Data')
+set.seed(100)
+names <- c(randomNames(600))
+df = expand.grid(names,week,subject)
+#added locations after so each person is in one locations
+df$location <- location
+df$grade <- c('K','1','2','3','4','5')
+#renaming variables in data frame
+df <- df %>%
+  rename(name = Var1,
+         week = Var2,
+         subject = Var3)
+#function to make new columns of questions
+questions <- function(number_questions,number_people){
+  #create new empty list
+  new_list <- list()
+  #add columns into the list
+  for (j in 1:number_questions) {
+    new_list[[paste("q_", j, sep = "")]] = sample(c(0,1),replace = TRUE, size = number_people,prob = c(0.2,0.8))
+  }
+  #create data frame with list
+  df1 <- as.data.frame(new_list)
+}
+#combine questions with data frame
+df <- df %>%
+  cbind(questions(10,9600)) 
+# percent from using rowsums
+df <- df %>%
+  mutate(percent = rowSums((df[,6:15])/10)*100)
+
+write.csv(df,'report_grade.csv',row.names = FALSE)

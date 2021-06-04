@@ -1,0 +1,22 @@
+"0","library(tidyverse)"
+"0","lineup <- read_csv(""SeqnzrLineup.csv"")"
+"2","Parsed with column specification:
+cols(
+  first_name = [31mcol_character()[39m,
+  last_name = [31mcol_character()[39m,
+  ab = [32mcol_double()[39m,
+  h = [32mcol_double()[39m,
+  `2b` = [32mcol_double()[39m,
+  `3b` = [32mcol_double()[39m,
+  hr = [32mcol_double()[39m,
+  bb = [32mcol_double()[39m,
+  so = [32mcol_double()[39m,
+  hbp = [32mcol_double()[39m,
+  sb = [32mcol_double()[39m,
+  sba = [32mcol_double()[39m,
+  sf = [32mcol_double()[39m,
+  sh = [32mcol_double()[39m,
+  speed = [32mcol_double()[39m
+)
+"
+"0","lineup"

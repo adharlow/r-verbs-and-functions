@@ -1,0 +1,21 @@
+library(randomNames)
+library(ggplot2)
+library(kableExtra)
+library(dplyr)
+library(tinytex)
+library(rmarkdown)
+library(tidyverse)
+options(tinytex.verbose = TRUE)
+
+set.seed(100)
+student_id = c(sample(0:9, size=5, replace=TRUE))
+student_name <- c(randomNames(600))
+df = expand.grid(student_id, student_name)
+#added locations after so each person is in one locations
+location_id = c(sample(0:9, size=5, replace=TRUE))
+clubhouse_id 
+df$location <- location
+df$grade <- c('K','1','2','3','4','5')
+time_started
+
+write.csv(df,'student_info_table.csv',row.names = FALSE)

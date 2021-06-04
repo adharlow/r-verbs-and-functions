@@ -1,0 +1,26 @@
+library(randomNames)
+library(ggplot2)
+library(kableExtra)
+library(dplyr)
+library(tinytex)
+library(rmarkdown)
+library(tidyverse)
+options(tinytex.verbose = TRUE)
+
+set.seed(100)
+location = c('San Francisco','Los Angeles', 'San Diego','Sacramento','Santa Cruz')
+location_id = c(sample(0:9, size=5, replace=TRUE))
+clubhouse_id = paste0("ch_id_", sample(0:9, size=4, replace=TRUE))
+runif(n,1000,9999)
+clubhouse 
+bgc_facillitator_name <- randomNames(600)
+bgc_facillitator_phone_number = c(sample(0:9, size=10, replace=TRUE))
+df = expand.grid(location,location_id,clubhouse_id
+                 ,clubhouse,bgc_facillitator_name,
+                 bgc_facillitator_email,bgc_facillitator_phone_number)
+df$location <- location
+bgc_facillitator_email <- paste0(df$bgc_facillitator_name, '@bgc.com')
+
+
+write.csv(df,'facillitator_table.csv',row.names = FALSE)
+
